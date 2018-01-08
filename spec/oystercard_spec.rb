@@ -38,28 +38,37 @@ RSpec.describe Oystercard do
   context '#touch_in' do
     it "Should change user status to in journey true" do
       subject.top_up(10)
-      expect(subject.touch_in).to eq true
+      expect(subject.touch_in(station)).to eq station
     end
 
     it "Should raise an error if minimum balance is less than £1" do
-      expect { subject.touch_in }.to raise_error "Minimum balance for a journey is £#{Oystercard::MINIMUM_BALANCE}"
+      expect { subject.touch_in(station) }.to raise_error "Minimum balance for a journey is £#{Oystercard::MINIMUM_BALANCE}"
     end
 
     it "Should remember the station touched into" do
-      allow(station).to recieve(:station)
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
     end
 
 
   end
 
   context '#touch_out' do
-    it "Should change user status to not in journey false" do
-      expect(subject.touch_out).to eq false
+    it "Should change user status to not in journey nil" do
+      expect(subject.touch_out).to eq nil
     end
 
     it "Should charge the Oystercard £1 on touch out" do
       subject.top_up(10)
       expect{subject.touch_out}.to change{subject.balance}.by(-Oystercard::MINIMUM_CHARGE)
+    end
+
+    it "Should forget the station location on touch out" do
+      subject.top_up(10)
+      subject.touch_in(station)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
     end
   end
 
