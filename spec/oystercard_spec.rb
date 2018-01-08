@@ -6,4 +6,13 @@ RSpec.describe Oystercard do
       expect(subject.balance).to eq 0
     end
   end
+
+  context '# .top_up' do
+    it 'Should credit the top up amount to the balance' do
+      money = 10
+      new_balance = subject.balance + money
+      expect(subject.top_up(money)).to eq new_balance
+    end
+  end
+
 end
