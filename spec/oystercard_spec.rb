@@ -35,16 +35,13 @@ RSpec.describe Oystercard do
 
   context '# touch_in' do
     it "Should change user status to in journey true" do
-      subject.touch_in
-      expect(subject).to be_in_journey
+      expect(subject.touch_in).to eq true
     end
   end
 
   context '# touch_out' do
     it "Should change user status to false" do
-      subject.touch_in
-      subject.touch_out
-      expect(subject).not_to be_in_journey
+      expect(subject.touch_out).to eq false
     end
   end
 
