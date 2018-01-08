@@ -27,4 +27,25 @@ RSpec.describe Oystercard do
     end
   end
 
+  context '# .in_journey?' do
+    it "Should give an status of Oystercard as not in journey" do
+      expect(subject).not_to be_in_journey
+    end
+  end
+
+  context '# touch_in' do
+    it "Should change user status to in journey true" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+  end
+
+  context '# touch_out' do
+    it "Should change user status to false" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
+
 end
