@@ -20,4 +20,11 @@ RSpec.describe Oystercard do
     end
   end
 
+  context '# .deduct' do
+    it "Should deduct the fare from the balance" do
+      subject.top_up(20)
+      expect(subject.deduct(10)).to eq 10
+    end
+  end
+
 end

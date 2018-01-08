@@ -13,4 +13,8 @@ TOP_UP_LIMIT = 90
     @balance += money
   end
 
+  def deduct(fare)
+    @balance -= fare
+  end
+
 end
